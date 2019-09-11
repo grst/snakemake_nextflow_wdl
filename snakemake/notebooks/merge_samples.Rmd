@@ -1,0 +1,56 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+Merge the single samples from RSEM into a single, annotated expression set. 
+
+```{r setup}
+library(tidyverse)
+library(stringr)
+library(ribiosIO)
+library(testit)
+```
+
+```{r}
+pdata = read_tsv("../SRR_Acc_List.txt", col_names="accession") 
+
+rsem_results = lapply(pdata$accession, function(fastq_id) {
+  file_placeholder = "../results/%s.genes.results"
+  file = sprintf(file_placeholder, fastq_id)
+  sample = read_tsv(file) %>% 
+    mutate(sample=fastq_id)
+  sample
+})
+
+all_results = bind_rows(rsem_results) %>% 
+  separate(gene_id, into=c("ensemble_id", "hgnc_id"), sep="_") %>%
+  mutate(log_tpm=log2(TPM+1))
+
+# write_tsv(all_results, "../results/immune_cell_reference_tidy.tsv")
+```
+
+
+## Make the gene expression matrix
+```{r}
+fdata = all_results %>% select(ensemble_id, hgnc_id, `transcript_id(s)`) %>% distinct()
+
+expr = all_results %>% select(ensemble_id, TPM, sample) %>%
+  spread(sample, TPM)
+
+assert("fdata has the same order as expr", 
+       all(fdata$ensemble_id == expr$ensemble_id))
+
+expr_mat = expr %>% 
+  select(-ensemble_id) %>%
+  .[, pdata$accession]
+feature_id = fdata$ensemble_id
+feature_desc = fdata$hgnc_id
+
+assert("pdata has the same order as expr columns",
+       all(pdata$FastqID == colnames(expr_mat)))
+
+write_gct(expr_mat, file="../results/immune_cell_reference.gct", feature_id, feature_desc)
+write_tsv(fdata, "../results/immune_cell_reference_fdata.tsv")
+write_tsv(pdata, "../results/immune_cell_reference_pdata.tsv")
+```
