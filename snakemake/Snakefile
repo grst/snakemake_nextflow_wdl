@@ -4,7 +4,7 @@ OUT_DIR = "/data/scratch/sturm/pipeline_test/snakemake"
 rule fastq:
   """run download"""
   input:
-    expand(OUT_DIR + "/{accession}_pass_1.fastq.gz", accession=SRA_ACCESSIONS)
+    expand(OUT_DIR + "/fastq/{accession}_pass_1.fastq.gz", accession=SRA_ACCESSIONS)
 
 rule rsem:
   """run rsem"""
@@ -14,14 +14,14 @@ rule rsem:
 rule download_fastq:
   """download fastq"""
   output:
-    OUT_DIR + "/{accession}_pass_1.fastq.gz"
+    OUT_DIR + "/fastq/{accession}_pass_1.fastq.gz"
   params:
     accession="{accession}"
   conda:
     "envs/fastq.yml"
   threads: 1
   shell:
-    "fastq-dump --outdir " + OUT_DIR + " "
+    "fastq-dump --outdir " + OUT_DIR + "/fastq/ "
     "--gzip --skip-technical --readids "
     "--read-filter pass --dumpbase --split-files --clip {params.accession}"
 
@@ -29,10 +29,10 @@ rule run_rsem:
   """align using rsem"""
   threads: 8
   input:
-    "data/{accession}_pass_1.fastq.gz"
+    OUT_DIR + "/fastq/{accession}_pass_1.fastq.gz"
   output:
-    "rsem/{accession}.genes.results",
-    "rsem/{accession}.isoforms.results"
+    OUT_DIR + "/rsem/{accession}.genes.results",
+    OUT_DIR + "/rsem/{accession}.isoforms.results"
   params:
     accession="{accession}"
   conda:
@@ -43,5 +43,5 @@ rule run_rsem:
     " --no-bam-output --append-names "
     " --single-cell-prior "
     " {input} "
-    " /storage/data/reference/homo_sapiens/GRCh38/rsem/ensemble/hsa_rsem_ensembl "
-    " " + OUT_DIR + "rsem/{params.accession} "
+    " /home/sturm/scratch/pipeline_test/rsem/ref_hg38_ensemble "
+    " " + OUT_DIR + "/rsem/{params.accession} "
