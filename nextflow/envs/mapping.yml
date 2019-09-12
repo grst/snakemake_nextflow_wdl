@@ -1,0 +1,5 @@
+channels:
+  - bioconda
+dependencies:
+  - rsem
+  - star=2.7.1a=0

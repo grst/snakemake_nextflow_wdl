@@ -46,7 +46,30 @@ The jobscript looks something like this:
 
 * has no 'dry-run' mode
 * change executor only via config files (bad for testing)
-* file-name-abstraction
+* file-name-abstraction. That means: not all files are exposed to the user but stay in a hidden working directory (every job gets an own directory). Debugging is easy, as one can change to the job-directory and check what's going on. Result files can be explicitly exposed via `publishDir` directive.
 
 ## How to run on cluster
+
+* via configuration file. Either global or local.
+* local configuration file: put into project directory `nextflow.config`
+
+Looks like this:
+
+To run on cluster:
+```
+process {
+  executor = 'sge'
+  penv = 'smp'
+    clusterOptions = { "-V -S /bin/bash " }
+  }
+```
+
+To run locally:
+```
+executor {
+  cpus = 10 /* max cpus on local machine */
+}
+```
+
+
 
