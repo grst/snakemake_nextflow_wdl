@@ -14,6 +14,8 @@ using all three platforms and compare.
 * very good documentation
 ✓ conda ✓ singularity
 
+* published 2012, >500 citations.
+
 ## How to run on cluster:
 ```
 snakemake --use-conda --cluster qsub --jobscript /path/to/wrapper_script.sh --jobs 32
@@ -37,6 +39,8 @@ The jobscript looks something like this:
 
 # Nextflow
 ✓ conda ✓ singularity
+
+* published 2017, 180 citations
 
 * works with conda in principle, but currently not because of [#1195](https://github.com/nextflow-io/nextflow/issues/1195).
 
@@ -72,4 +76,9 @@ executor {
 ```
 
 
+# Cromwell/WDL
+✗ conda ✓ singularity
 
+* mediocre documentation for getting the user started, but it's ok.
+* finishes all running tasks, even if a later task fails.
+* no support for conda environments
