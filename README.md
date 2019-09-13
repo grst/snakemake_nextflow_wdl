@@ -1,7 +1,8 @@
 # Simple comparison of Snakemake, Nextflow and Cromwell/WDL
 
-I will implement very simple workflow (download FASTQ files and align them to a reference genome)
-using all three platforms and compare.
+A very simple workflow (download FASTQ files and align them to a reference genome) implemented 
+in Snakemake, Nextflow and WDL. This README contains a subjective comparison of the pipelines. 
+
 
 ## Criteria
 * Support for conda envs
