@@ -11,8 +11,9 @@ using all three platforms and compare.
 
 # Snakemake
 
-* very good documentation
 ✓ conda ✓ singularity
+
+* very good documentation
 
 * published 2012, >500 citations.
 
@@ -82,3 +83,20 @@ executor {
 * mediocre documentation for getting the user started, but it's ok.
 * finishes all running tasks, even if a later task fails.
 * no support for conda environments
+
+## How to run on cluster
+
+* via configuration file.
+
+```
+backend {
+  default = "SGE"
+  providers {
+    SGE {
+      ...
+      submit = "qsub -V ..."
+    }
+  }
+}
+```
+
