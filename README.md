@@ -43,10 +43,9 @@ The jobscript looks something like this:
 ✓ conda ✓ singularity
 
 * published 2017, 180 citations
-
 * works with conda in principle, but currently not because of [#1195](https://github.com/nextflow-io/nextflow/issues/1195).
-
 * very good documentation
+* [Nf-core](https://nf-co.re) to publish pipelines. 
 
 ## Differences to Snakemake
 
