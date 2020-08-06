@@ -3,7 +3,8 @@
 A very simple workflow (download FASTQ files and align them to a reference genome) implemented 
 in Snakemake, Nextflow and WDL. This README contains a subjective comparison of the pipelines. 
 
-[reddit thread](https://www.reddit.com/r/bioinformatics/comments/a4fq4i/given_the_experience_of_others_writing/) about the pipelines. 
+ * [reddit thread](https://www.reddit.com/r/bioinformatics/comments/a4fq4i/given_the_experience_of_others_writing/) about the pipelines. 
+ * [biorxiv preprint](https://www.biorxiv.org/content/10.1101/2020.08.04.236208v1.full.pdf) sharing experiences from rapid prototyping a pipeline with different workflow managers. 
 
 ## Criteria
 * Support for conda envs
