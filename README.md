@@ -12,6 +12,19 @@ in Snakemake, Nextflow and WDL. This README contains a subjective comparison of 
 * User-friendlyness
 * How easy to submit on cluster?
 
+## Interconvertibility of workflow languages
+
+Workflow languages are interconvertible, which lowers the risk of being locked into a single implementation:
+
+* Snakemake can be converted to CWL using the `--export-cwl` directive ([snakemake docs](https://snakemake.readthedocs.io/en/stable/executing/interoperability.html)).
+* CWL can be converted to Nextflow using `cwl2nxf-*.jar` ([Nextflow blog](https://www.nextflow.io/blog/2017/nextflow-and-cwl.html)).
+* CWL can be converted to WDL using [`cwl2wdl`](https://github.com/adamstruck/cwl2wdl) ([bioconda](https://bioconda.github.io/recipes/cwl2wdl/README.html)).
+* WDL can be converted to CWL using [`wdl-cwl-translator`](https://github.com/common-workflow-lab/wdl-cwl-translator) or [`wdl2cwl`](https://github.com/common-workflow-lab/wdl2cwl).
+
+## CWL
+
+CWL (Common Workflow Language) is another workflow language that interconverts with Snakemake, Nextflow, and WDL via the converters above.
+
 # Snakemake
 
 ✓ conda ✓ singularity
