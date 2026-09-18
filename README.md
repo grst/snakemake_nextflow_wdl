@@ -1,3 +1,6 @@
+> [!NOTE]
+> This repo is not maintained anymore. A more up-to-date comparison is the paper by [Wratten et al.](https://doi.org/10.1038/s41592-021-01254-9).
+
 # Simple comparison of Snakemake, Nextflow and Cromwell/WDL
 
 A very simple workflow (download FASTQ files and align them to a reference genome) implemented 
